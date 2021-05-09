@@ -1,0 +1,108 @@
+:root {
+  --light-gray: #dbdbdb;
+  --medium-gray: #ababab;
+  --dark-gray: #636363;
+  --dark-blue: #124ba1;
+  --med-blue: #1c76fc;
+  --light-blue: #64a0fa;
+}
+
+body {
+  font-family: sans-serif;
+}
+
+a {
+  text-decoration: none;
+  color: var(--light-blue);
+  cursor: pointer;
+}
+a:hover {
+  color: var(--dark-blue);
+}
+
+#input-form {
+  margin: 0.25em;
+}
+
+.grid {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.row {
+}
+
+.grid:before,
+.grid:after,
+.row:before,
+.row:after {
+  content: " ";
+  display: table;
+  padding: 0.25em 0.25em 0.25em 0em;
+}
+
+.grid:after,
+.row:after {
+  clear: both;
+}
+
+input {
+  display: block;
+  float: left;
+  border: 1px solid #000;
+  border-radius: 0px;
+  padding: 1em;
+}
+
+input[type="submit"] {
+  margin: -5px 0em 0em 0em;
+  color: white;
+  border: 1px solid var(--dark-blue);
+  background-color: var(--light-blue);
+  cursor: pointer;
+}
+
+input[type="submit"]:hover {
+  border: 1px solid var(--light-blue);
+  background-color: var(--dark-blue);
+}
+
+input[type="text"] {
+  max-width: 600px;
+  margin: 1em 1em 1em 0em;
+}
+
+input[type="text"]:active {
+  border-radius: 0px;
+}
+
+#todo-list {
+}
+
+.todo {
+  display: block;
+  width: 95%;
+  margin: 0em 1em 1em 0.25em;
+  padding: 1em 0.25em 1em 1em;
+  border: 1px solid var(--dark-gray);
+}
+
+/* .todo-text {
+  float: left;
+}
+*/
+.delete {
+  float: right;
+  margin: -13px 0em 0em -40px;
+  padding: 1em;
+  color: white;
+  border: 1px solid var(--dark-blue);
+  background-color: var(--light-blue);
+  cursor: pointer;
+}
+
+.delete:hover {
+  border: 1px solid var(--light-blue);
+  background-color: var(--dark-blue);
+}
