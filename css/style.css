@@ -5,6 +5,7 @@
   --dark-blue: #124ba1;
   --med-blue: #1c76fc;
   --light-blue: #64a0fa;
+  --med-orange: #eb4034;
 }
 
 body {
@@ -22,6 +23,15 @@ a:hover {
 
 #input-form {
   margin: 0.25em;
+}
+
+#clear {
+  margin: -5px 0em 0em 5em;
+}
+
+#clear:hover {
+  background-color: var(--med-orange);
+  border: 1px solid var(--med-orange);
 }
 
 .grid {
@@ -105,4 +115,13 @@ input[type="text"]:active {
 .delete:hover {
   border: 1px solid var(--light-blue);
   background-color: var(--dark-blue);
+}
+
+.strike {
+  border: none;
+  color: var(--light-blue);
+  text-decoration: line-through;
+}
+.hide {
+  display: none;
 }
