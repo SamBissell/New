@@ -5,6 +5,7 @@ const inputField = document.getElementById("todoInput");
 const inputPriority = document.getElementById("priority");
 const todos = document.getElementById("todo-list");
 const deleteBtn = document.querySelectorAll(".delete");
+// const clearBtn = document.getElementById("clear");
 
 //==== Model
 
@@ -36,16 +37,12 @@ class Todo {
 
     deleteBtn.addEventListener("click", deleteTodo);
   }
-
-  deleteTodo() {}
 }
 
 // New todo
-
 const newTodo = function () {
   let text = inputField.value;
-  // determine priority value here
-  const todo = new Todo(text, "priority");
+  const todo = new Todo(text);
   todo.addToList();
   todo.renderTodo();
   inputField.value = "";
@@ -54,20 +51,17 @@ const newTodo = function () {
 
 const deleteTodo = (e) => {
   let targetedTodo = e.target.closest(".todo");
+  let targetedDelete = e.target.closest(".delete");
   console.log(`${targetedTodo.id}`);
   // remove from array
   let targetedIndex = targetedTodo - 1;
   list.splice(targetedIndex, 1);
-  console.log(list);
-  // remove from DOM
-  targetedTodo.remove();
+  // console.log(list);
+  // change styling
+  targetedTodo.classList.add("strike");
+  targetedDelete.classList.add("hide");
 };
 
-//==== View
-
-//==== Controller
-
-// this runs the code block when the submit button is clicked
 submitBtn.addEventListener("click", (e) => {
   e.preventDefault();
   // a function that creates a new todo
@@ -78,12 +72,7 @@ submitBtn.addEventListener("click", (e) => {
   }
 });
 
-// How can I use objects and where?
-// List of features:
-// Add Todo
-// Edit Todo
-// Delete Todo
-//
-// Wish List Features:
-// Importance ranking of Todos
-// Deadline Timer for Todos
+// clearBtn.addEventListener("click", (e) => {
+//   e.preventDefault();
+//   // a function that removes all todos
+// });
