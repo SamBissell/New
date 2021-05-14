@@ -87,7 +87,13 @@ input[type="text"]:active {
   border-radius: 0px;
 }
 
-#todo-list {
+#clear-all {
+  border: 1px solid var(--dark-blue);
+  margin: -5px 0em 0em 1em;
+}
+#clear-all:hover {
+  border: 1px solid var(--light-blue);
+  background-color: var(--med-orange);
 }
 
 .todo {
@@ -102,9 +108,24 @@ input[type="text"]:active {
   float: left;
 }
 */
+.done {
+  float: right;
+  margin: -14px 0em 0em -40px;
+  padding: 1em;
+  color: white;
+  border: 1px solid var(--dark-blue);
+  background-color: var(--light-blue);
+  cursor: pointer;
+}
+
+.done:hover {
+  border: 1px solid var(--light-blue);
+  background-color: var(--dark-blue);
+}
+
 .delete {
   float: right;
-  margin: -13px 0em 0em -40px;
+  margin: -14px 45px 0em 0em;
   padding: 1em;
   color: white;
   border: 1px solid var(--dark-blue);
@@ -114,7 +135,7 @@ input[type="text"]:active {
 
 .delete:hover {
   border: 1px solid var(--light-blue);
-  background-color: var(--dark-blue);
+  background-color: var(--med-orange);
 }
 
 .strike {
