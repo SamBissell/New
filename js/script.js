@@ -1,92 +1,211 @@
-"use strict";
+"use strict"
 
-const submitBtn = document.getElementById("submit");
-const inputField = document.getElementById("todoInput");
-const inputPriority = document.getElementById("priority");
-const todos = document.getElementById("todo-list");
-const doneButton = document.querySelectorAll(".done");
-const clearBtn = document.getElementById('clear-all');
-
-
-// const clearBtn = document.getElementById("clear");
-
-//==== Model
+const rootEl = document.getElementById("root");
 
 
 
+// data
+// [] list
+let list = [];
+
+// {} todo
 class Todo {
-  constructor(text) {
+    constructor(t) {
+        this.id = list.length;
+        this.todoText = t;
+        this.isDone = false;
+    }
+    // () add to list
+    addToList() {
+        list.push(this);
+    }
+    // () delete from list
+    deleteFromList() {
+        list.splice((this.id), 1)
+    }
+    // () update todo
+    updateTodo(u) {
+        this.todoText = u
+    }
+    completeTodo() {
 
-    this.todoText = text;
-    // this.priority = priority;
-  }
-
-
-
-  renderTodo() {
-    const newTodo = document.createElement("div");
-    const newText = document.createTextNode(`${this.todoText}`);
-    const doneButton = document.createElement("BUTTON");
-    doneButton.addEventListener('click', doneTodo);
-    const deleteButton = document.createElement("BUTTON");
-    deleteButton.addEventListener('click', deleteTodo);
-    newTodo.classList.add("todo");
-    doneButton.classList.add("done");
-    doneButton.innerHTML = "Done";
-    deleteButton.classList.add("delete");
-    deleteButton.innerHTML = "Delete";
-
-    newTodo.appendChild(newText);
-    newTodo.appendChild(doneButton);
-    newTodo.appendChild(deleteButton);
-    todos.appendChild(newTodo);
-
-    doneButton.addEventListener("click", doneTodo);
-  }
+    }
 }
 
-// New todo
 const newTodo = function () {
-  let text = inputField.value;
-  const todo = new Todo(text);
-  todo.renderTodo();
-  inputField.value = "";
+    let t = inputField.value;
+    const todo = new Todo(t);
+    todo.addToList();
 };
 
-const doneTodo = (e) => {
-  let targetedTodo = e.target.closest(".todo");
-  let targeteddone = e.target.closest(".done");
-  // console.log(`${targetedTodo.id}`);
-  // remove from array
+const clearTodos = function () {
+    list = [];
+}
 
-  // list.splice(targetedIndex, 1);
-  // console.log(list);
-  // change styling
-  targetedTodo.classList.add("strike");
-  // targeteddone.classList.add("hide");
+
+
+// display
+// el input field
+// el add button
+// el clear button
+
+const title = document.createElement("h1");
+const credit = document.createElement("p");
+const siteLink = document.createElement("a");
+const inputForm = document.createElement("div");
+const inputField = document.createElement("input");
+const inputButton = document.createElement("input");
+const clearButton = document.createElement("button");
+
+title.textContent = "To-Do List";
+siteLink.textContent = "Sam Bissell";
+siteLink.href = "www.sbissell.com";
+credit.textContent = "A CRUD to-do list by ";
+inputField.setAttribute("type", "text")
+inputButton.setAttribute("type", "submit")
+inputButton.setAttribute("value", "Add Todo")
+
+
+clearButton.textContent = "Clear All";
+
+inputForm.classList.add("input-form");
+inputField.classList.add("input-field");
+inputButton.id = "input-button";
+clearButton.classList.add("clear-button");
+
+inputForm.appendChild(inputField);
+inputForm.appendChild(inputButton);
+inputForm.appendChild(clearButton);
+credit.appendChild(siteLink);
+rootEl.appendChild(title);
+rootEl.appendChild(credit);
+rootEl.appendChild(inputForm);
+
+inputButton.addEventListener("click", () => {
+    newTodo();
+    clearDisplay();
+    renderList();
+});
+clearButton.addEventListener("click", () => {
+    clearList();
+    clearDisplay();
+});
+
+const renderTodo = (is, id, t) => {
+    const elTodoBody = document.createElement("div");
+    const elTodoText = document.createElement("h3");
+    const elDone = document.createElement("button");
+    const elEdit = document.createElement("button");
+    const elDelete = document.createElement("button");
+
+
+    elTodoBody.id = `${id}`;
+    elTodoText.textContent = `${t}`;
+    elDone.textContent = "Done";
+    elEdit.textContent = "Edit";
+    elDelete.textContent = "Delete";
+
+    if (is) { elTodoBody.classList.add("complete"); };
+
+    elTodoBody.classList.add("todo-body");
+    elTodoText.classList.add("todo-text")
+    elDone.classList.add("done");
+    elEdit.classList.add("edit");
+    elDelete.classList.add("delete");
+
+    elDone.addEventListener("click", doneTodo);
+    elEdit.addEventListener("click", editTodo);
+    elDelete.addEventListener("click", deleteTodo);
+    // elEditConfirm.addEventListener("click", confirmEdit); 
+
+    elTodoBody.appendChild(elTodoText);
+    elTodoBody.appendChild(elDone);
+    elTodoBody.appendChild(elEdit);
+    elTodoBody.appendChild(elDelete);
+    rootEl.appendChild(elTodoBody);
 };
+
+// *************
+// *************
+// *************
+// *************
 
 const deleteTodo = (e) => {
-  let targetedTodo = e.target.closest(".todo");
+    e.preventDefault()
 
-  targetedTodo.remove();
-  // targeteddone.classList.add("hide");
+    let targetCard = e.target.closest(".todo-body");
+    let targetIndex = (targetCard.id - 1);
+
+    targetCard.remove();
+
+    list.splice(targetIndex, 1);
+    // console.log(list);
 };
 
-submitBtn.addEventListener("click", (e) => {
-  e.preventDefault();
-  // a function that creates a new todo
-  if (inputField.value != "") {
-    newTodo();
-  } else {
-    alert("Please Enter Todo Text");
-  }
-});
 
-clearBtn.addEventListener("click", (e) => {
-  e.preventDefault();
-  // a function that removes all todos
-  while (todos.firstChild) {
-    todos.removeChild(todos.lastChild);
-  }
-});
+const doneTodo = (e) => {
+    let targetTodo = e.target.closest(".todo-body");
+    let targetId = targetTodo.id;
+    if (list[targetId].isDone) {
+        list[targetId].isDone = false;
+    } else {
+        list[targetId].isDone = true;
+    };
+    console.log(list[targetId].isDone);
+    clearDisplay();
+    renderList();
+}
+
+const editTodo = (e) => {
+
+    let targetTodo = e.target.closest(".todo-body");
+
+    const elEditField = document.createElement("input");
+    const elEditConfirm = document.createElement("button");
+
+    elEditField.setAttribute("type", "text")
+    elEditConfirm.textContent = "Confirm Change";
+
+    elEditField.classList.add("edit-field");
+    elEditConfirm.classList.add("edit-confirm");
+
+    targetTodo.appendChild(elEditField);
+    targetTodo.appendChild(elEditConfirm);
+
+    elEditConfirm.addEventListener("click", (e) => {
+        e.preventDefault();
+
+        let targetId = targetTodo.id;
+        console.log(list[targetId]);
+        console.log(elEditField.value);
+
+        list[targetId].updateTodo(elEditField.value)
+        clearDisplay();
+        renderList();
+    });
+}
+
+// doneTodo => change isDone to true
+// editTodo => show editing field and button
+// deleteTodo
+// Confirm Edit
+
+
+// () render list
+const renderList = function () {
+    for (let i = 0; i <= list.length - 1; i++) {
+        renderTodo(list[i].isDone, list[i].id, list[i].todoText)
+    };
+}
+
+const clearList = () => list = [];
+
+const clearDisplay = function () {
+    let todos = document.querySelectorAll(".todo-body");
+    for (let i = 0; i <= todos.length - 1; i++) {
+        rootEl.removeChild(todos[i]);
+    }
+    // clear input field
+    inputField.value = "";
+};
+
