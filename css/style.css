@@ -1,148 +1,71 @@
 :root {
-  --light-gray: #dbdbdb;
-  --medium-gray: #ababab;
-  --dark-gray: #636363;
-  --dark-blue: #124ba1;
-  --med-blue: #1c76fc;
-  --light-blue: #64a0fa;
-  --med-orange: #eb4034;
+  --white: #fff;
+  --blue: #1e8bf1;
+  --orange: #f1991e;
+  --light-gray: #c5c9d1;
+  --gray: #95989e;
+}
+
+a {
+  color: var(--blue);
+  text-decoration: none;
 }
 
 body {
   font-family: sans-serif;
+  text-align: center;
 }
 
-a {
-  text-decoration: none;
-  color: var(--light-blue);
-  cursor: pointer;
-}
-a:hover {
-  color: var(--dark-blue);
-}
-
-#input-form {
-  margin: 0.25em;
-}
-
-#clear {
-  margin: -5px 0em 0em 5em;
-}
-
-#clear:hover {
-  background-color: var(--med-orange);
-  border: 1px solid var(--med-orange);
-}
-
-.grid {
-  width: 100%;
-  max-width: 1100px;
-  margin: 0 auto;
-}
-
-.row {
-}
-
-.grid:before,
-.grid:after,
-.row:before,
-.row:after {
-  content: " ";
-  display: table;
-  padding: 0.25em 0.25em 0.25em 0em;
-}
-
-.grid:after,
-.row:after {
-  clear: both;
-}
-
-input {
-  display: block;
-  float: left;
-  border: 1px solid #000;
-  border-radius: 0px;
-  padding: 1em;
-}
-
-input[type="submit"] {
-  margin: -5px 0em 0em 0em;
-  color: white;
-  border: 1px solid var(--dark-blue);
-  background-color: var(--light-blue);
+button,
+#input-button,
+.input-field {
+  margin: 0.5em;
+  padding: 0.5em 1em;
   cursor: pointer;
 }
 
-input[type="submit"]:hover {
-  border: 1px solid var(--light-blue);
-  background-color: var(--dark-blue);
-}
-
-input[type="text"] {
-  max-width: 600px;
-  margin: 1em 1em 1em 0em;
-}
-
-input[type="text"]:active {
-  border-radius: 0px;
-}
-
-#clear-all {
-  border: 1px solid var(--dark-blue);
-  margin: -5px 0em 0em 1em;
-}
-#clear-all:hover {
-  border: 1px solid var(--light-blue);
-  background-color: var(--med-orange);
-}
-
-.todo {
-  display: block;
-  width: 95%;
-  margin: 0em 1em 1em 0.25em;
-  padding: 1em 0.25em 1em 1em;
-  border: 1px solid var(--dark-gray);
-}
-
-/* .todo-text {
-  float: left;
-}
-*/
-.done {
-  float: right;
-  margin: -14px 0em 0em -40px;
-  padding: 1em;
-  color: white;
-  border: 1px solid var(--dark-blue);
-  background-color: var(--light-blue);
-  cursor: pointer;
-}
-
-.done:hover {
-  border: 1px solid var(--light-blue);
-  background-color: var(--dark-blue);
-}
-
-.delete {
-  float: right;
-  margin: -14px 45px 0em 0em;
-  padding: 1em;
-  color: white;
-  border: 1px solid var(--dark-blue);
-  background-color: var(--light-blue);
-  cursor: pointer;
-}
-
-.delete:hover {
-  border: 1px solid var(--light-blue);
-  background-color: var(--med-orange);
-}
-
-.strike {
+button,
+#input-button {
+  background-color: var(--blue);
+  color: var(--white);
   border: none;
-  color: var(--light-blue);
-  text-decoration: line-through;
+  border-radius: 2px;
 }
-.hide {
-  display: none;
+
+button {
+}
+
+#input-button {
+}
+
+.input-field {
+  cursor: text;
+}
+
+.clear-button {
+}
+
+.clear-button:hover,
+.delete:hover {
+  background-color: var(--orange);
+}
+
+.complete {
+  text-decoration: line-through;
+  color: var(--gray);
+}
+
+.todo-body {
+  background-color: var(--white);
+  border-radius: 3px;
+  box-shadow: 10px 5px 5px var(--light-gray);
+}
+
+.todo-text {
+  padding: 1em 0em 0em 0.35em;
+}
+
+.logo {
+  height: 32px;
+  margin: 1.25em 0 0 0;
 }
