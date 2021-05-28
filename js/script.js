@@ -49,6 +49,7 @@ const clearTodos = function () {
 // el add button
 // el clear button
 
+const logo = document.createElement("img");
 const title = document.createElement("h1");
 const credit = document.createElement("p");
 const siteLink = document.createElement("a");
@@ -57,6 +58,7 @@ const inputField = document.createElement("input");
 const inputButton = document.createElement("input");
 const clearButton = document.createElement("button");
 
+logo.setAttribute("src", "todoLogo.svg")
 title.textContent = "To-Do List";
 siteLink.textContent = "Sam Bissell";
 siteLink.href = "www.sbissell.com";
@@ -68,6 +70,7 @@ inputButton.setAttribute("value", "Add Todo")
 
 clearButton.textContent = "Clear All";
 
+logo.classList.add("logo");
 inputForm.classList.add("input-form");
 inputField.classList.add("input-field");
 inputButton.id = "input-button";
@@ -77,6 +80,7 @@ inputForm.appendChild(inputField);
 inputForm.appendChild(inputButton);
 inputForm.appendChild(clearButton);
 credit.appendChild(siteLink);
+rootEl.appendChild(logo);
 rootEl.appendChild(title);
 rootEl.appendChild(credit);
 rootEl.appendChild(inputForm);
