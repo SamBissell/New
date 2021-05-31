@@ -11,7 +11,7 @@ let list = [];
 // {} todo
 class Todo {
     constructor(t) {
-        this.id = list.length;
+        this.id = Date.now();
         this.todoText = t;
         this.isDone = false;
     }
@@ -87,8 +87,7 @@ rootEl.appendChild(inputForm);
 
 inputButton.addEventListener("click", () => {
     newTodo();
-    clearDisplay();
-    renderList();
+    refresh();
 });
 clearButton.addEventListener("click", () => {
     clearList();
@@ -133,36 +132,90 @@ const renderTodo = (is, id, t) => {
 // *************
 // *************
 // *************
-
-const deleteTodo = (e) => {
-    e.preventDefault()
-
-    let targetCard = e.target.closest(".todo-body");
-    let targetIndex = (targetCard.id - 1);
-
-    targetCard.remove();
-
-    list.splice(targetIndex, 1);
-    // console.log(list);
-};
-
-
-const doneTodo = (e) => {
+// Need a target Index Function
+const getTargetIndex = (e) => {
     let targetTodo = e.target.closest(".todo-body");
-    let targetId = targetTodo.id;
-    if (list[targetId].isDone) {
-        list[targetId].isDone = false;
-    } else {
-        list[targetId].isDone = true;
-    };
-    console.log(list[targetId].isDone);
+    let targetId = parseInt(targetTodo.id);
+    let targetIndex = list.findIndex(x => x.id === targetId);
+    return targetIndex;
+}
+
+const getTargetTodo = (e) => {
+    let targetTodo = e.target.closest(".todo-body");
+    return targetTodo;
+}
+
+const refresh = () => {
     clearDisplay();
     renderList();
 }
 
+
+const deleteTodo = (e) => {
+    let myTarget = getTargetIndex(e)
+    list.splice(myTarget, 1);
+    refresh();
+    // console.log(list);
+};
+
+const doneTodo = (e) => {
+    let myTarget = getTargetIndex(e);
+    if (list[myTarget].isDone) {
+        list[myTarget].isDone = false;
+    } else {
+        list[myTarget].isDone = true;
+    };
+    refresh();
+}
+
+
+// const doneTodo = (e) => {
+
+//     let targetTodo = e.target.closest(".todo-body");
+//     let targetId = targetTodo.id;
+
+//     let targetIndex = list.findIndex(x => {
+//         x.id === targetId;
+
+//     });
+
+
+//     console.log(targetIndex);
+
+//     // if (list[targetIndex].isDone) {
+//     //     list[targetIndex].isDone = false;
+//     // } else {
+//     //     list[targetIndex].isDone = true;
+//     // };
+//     clearDisplay();
+//     renderList();
+// }
+
+// let arr = [
+//     {
+//         id: 1234,
+//         name: "sam"
+//     },
+//     {
+//         id: 5678,
+//         name: "bill"
+//     },
+//     {
+//         id: 9012,
+//         name: "fred"
+//     }
+// ];
+
+// const index = list.findIndex(list => list.id === list[0]);
+
+
+// console.log(index);
+// console.log(arr[index]);
+
 const editTodo = (e) => {
 
-    let targetTodo = e.target.closest(".todo-body");
+    let targetIndex = getTargetIndex(e);
+    let targetElement = getTargetTodo(e);
 
     const elEditField = document.createElement("input");
     const elEditConfirm = document.createElement("button");
@@ -173,17 +226,11 @@ const editTodo = (e) => {
     elEditField.classList.add("edit-field");
     elEditConfirm.classList.add("edit-confirm");
 
-    targetTodo.appendChild(elEditField);
-    targetTodo.appendChild(elEditConfirm);
+    targetElement.appendChild(elEditField);
+    targetElement.appendChild(elEditConfirm);
 
     elEditConfirm.addEventListener("click", (e) => {
-        e.preventDefault();
-
-        let targetId = targetTodo.id;
-        console.log(list[targetId]);
-        console.log(elEditField.value);
-
-        list[targetId].updateTodo(elEditField.value)
+        list[targetIndex].updateTodo(elEditField.value)
         clearDisplay();
         renderList();
     });
